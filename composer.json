@@ -1,5 +1,5 @@
 {
-    "name": "sergkash/Amazon_MWS",
+    "name": "Amazon_MWS",
     "description": "AmazonMWS Libraries",
     "require": {
         "php": ">=5.4"
