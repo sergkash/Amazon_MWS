@@ -26,7 +26,7 @@
     ***********************************************************************/
     #define ('MERCHANT_ID', '<Your Merchant Id>');
     #define ('MARKETPLACE_ID', '<Your Marketplace Id>');
-    define ('MARKETPLACE_ID', 'A1PA6795UKMFR9');
+    #define ('MARKETPLACE_ID', 'A1PA6795UKMFR9');
 
    /************************************************************************ 
     * OPTIONAL ON SOME INSTALLATIONS
@@ -35,10 +35,8 @@
     * Only needed when running library from local directory.
     * If library is installed in PHP include path, this is not needed
     ***********************************************************************/   
-    set_include_path(get_include_path() . PATH_SEPARATOR . dirname(dirname(__DIR__)));  
-    //set_include_path(get_include_path() . PATH_SEPARATOR . '../../'); 
-    //echo get_include_path() . PATH_SEPARATOR . '../../.' . ':' . VENDORS; die();
-    //set_include_path($_SERVER['DOCUMENT_ROOT'] . PATH_SEPARATOR . 'app/vendor');
+    
+    set_include_path(get_include_path() . PATH_SEPARATOR . dirname(dirname(__DIR__))); 
 
    /************************************************************************ 
     * OPTIONAL ON SOME INSTALLATIONS  
@@ -54,7 +52,13 @@
     * (provided library is installed in the PHP include path), and so classes may just 
     * be loaded even when this function is removed
     ***********************************************************************/  
-
+    $config = array (
+      //'ServiceURL' => $serviceUrl,
+      'ProxyHost' => null,
+      'ProxyPort' => -1,
+      'MaxErrorRetry' => 3,
+    );
+    
     spl_autoload_register('autoload');	
     function autoload($className){
         $filePath = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
@@ -66,9 +70,5 @@
                 return;
             }
         }
-        
-        die('here');
-
-
     }
 

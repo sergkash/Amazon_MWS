@@ -26,8 +26,7 @@
     ***********************************************************************/
     #define ('MERCHANT_ID', '<Your Merchant Id>');
     #define ('MARKETPLACE_ID', '<Your Marketplace Id>');
-    define ('MARKETPLACE_ID', 'A1PA6795UKMFR9');
-
+    
    /************************************************************************ 
     * OPTIONAL ON SOME INSTALLATIONS
     *
@@ -54,21 +53,22 @@
     * (provided library is installed in the PHP include path), and so classes may just 
     * be loaded even when this function is removed
     ***********************************************************************/  
-
+    $config = array (
+      //'ServiceURL' => $serviceUrl,
+      'ProxyHost' => null,
+      'ProxyPort' => -1,
+      'MaxErrorRetry' => 3,
+    );
+    
     spl_autoload_register('autoload');	
     function autoload($className){
         $filePath = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
         $includePaths = explode(PATH_SEPARATOR, get_include_path());
-        //echo $filePath; die();
         foreach($includePaths as $includePath){
             if(file_exists($includePath . DIRECTORY_SEPARATOR . $filePath)){
                 require_once $filePath;
                 return;
             }
         }
-        
-
-
-
     }
 
