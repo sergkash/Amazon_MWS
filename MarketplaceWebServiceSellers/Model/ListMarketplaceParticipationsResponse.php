@@ -203,10 +203,31 @@ require_once (dirname(__FILE__) . '/../Model.php');
         if ($response->length == 1) {
             return new MarketplaceWebServiceSellers_Model_ListMarketplaceParticipationsResponse(($response->item(0))); 
         } else {
+            
             throw new Exception ("Unable to construct MarketplaceWebServiceSellers_Model_ListMarketplaceParticipationsResponse from provided XML. 
                                   Make sure that ListMarketplaceParticipationsResponse is a root element");
         }
     }
+    
+    
+    public static function fromXMLCustom($xml)
+    {
+        $dom = new DOMDocument();
+        $dom->loadXML($xml);
+        $xpath = new DOMXPath($dom);
+        $response = $xpath->query("//*[local-name()='ListMarketplaceParticipationsResponse']");
+        if ($response->length == 1) {
+            return new MarketplaceWebServiceSellers_Model_ListMarketplaceParticipationsResponse(($response->item(0))); 
+        } else {
+            $response = $xpath->query("//*[local-name()='Error']");
+            if($response->length == 1) {
+                $message = $xpath->query("//*[local-name()='Message']");
+                return array('Error' => $message->item(0)->nodeValue);
+            }
+        }
+    }    
+    
+    
     /**
      * XML Representation for this object
      * 

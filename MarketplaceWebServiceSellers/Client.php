@@ -119,10 +119,10 @@ class MarketplaceWebServiceSellers_Client implements MarketplaceWebServiceSeller
         $parameters = $request->toQueryParameterArray();
         $parameters['Action'] = 'ListMarketplaceParticipations';
         $httpResponse = $this->_invoke($parameters);
-
+        
         require_once (dirname(__FILE__) . '/Model/ListMarketplaceParticipationsResponse.php');
-        $response = MarketplaceWebServiceSellers_Model_ListMarketplaceParticipationsResponse::fromXML($httpResponse['ResponseBody']);
-        $response->setResponseHeaderMetadata($httpResponse['ResponseHeaderMetadata']);
+        $response = MarketplaceWebServiceSellers_Model_ListMarketplaceParticipationsResponse::fromXMLCustom($httpResponse['ResponseBody']);
+        //$response->setResponseHeaderMetadata($httpResponse['ResponseHeaderMetadata']);
         return $response;
     }
 
@@ -363,6 +363,10 @@ class MarketplaceWebServiceSellers_Client implements MarketplaceWebServiceSeller
             }
             $parameters = $this->_addRequiredParameters($parameters);
             $retries = 0;
+            $response = $this->_httpPost($parameters);
+            //print_r($response); die();
+            return array('ResponseBody' => $response['ResponseBody']
+                      );
             for (;;) {
                 $response = $this->_httpPost($parameters);
                 $status = $response['Status'];
@@ -373,7 +377,7 @@ class MarketplaceWebServiceSellers_Client implements MarketplaceWebServiceSeller
                 if ($status == 500 && $this->_pauseOnRetry(++$retries)) {
                     continue;
                 }
-                throw $this->_reportAnyErrors($response['ResponseBody'],
+               throw $this->_reportAnyErrors($response['ResponseBody'],
                     $status, $response['ResponseHeaderMetadata']);
             }
         } catch (MarketplaceWebServiceSellers_Exception $se) {
