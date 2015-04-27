@@ -53,9 +53,14 @@
     * (provided library is installed in the PHP include path), and so classes may just 
     * be loaded even when this function is removed
     ***********************************************************************/  
+<<<<<<< HEAD
 	
 	$config = array (
 	  //'ServiceURL' => $serviceUrl,
+=======
+	$config = array (
+	  'ServiceURL' => $serviceUrl,
+>>>>>>> 9c7a1d6244be8da51965df794ae6c98568e2ae82
 	  'ProxyHost' => null,
 	  'ProxyPort' => -1,
 	  'ProxyUsername' => null,
