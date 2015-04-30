@@ -1,5 +1,5 @@
 <?php
-	define ('DATE_FORMAT', 'Y-m-d\TH:i:s\Z');
+
    /************************************************************************
     * REQUIRED
     * 
@@ -62,8 +62,8 @@
 	);
 
     
-    spl_autoload_register('autoload');	
-    function autoload($className){
+    spl_autoload_register('autoload_seller');	
+    function autoload_seller($className){
         $filePath = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
         $includePaths = explode(PATH_SEPARATOR, get_include_path());
         foreach($includePaths as $includePath){
